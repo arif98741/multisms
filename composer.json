@@ -1,0 +1,24 @@
+{
+    "name": "arif98741/xenon",
+    "description": "This is universal sms gateway service provider for Bangladesh",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ariful",
+            "email": "arifsofg@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arif98741\\Xenon\\": "src/"
+        }
+    },
+    "require-dev": {
+        "filp/whoops": "^2.7@dev"
+    }
+}

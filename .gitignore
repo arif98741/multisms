@@ -1,0 +1,6 @@
+.phpintel
+.idea
+vendor
+*.log
+*.zip
+*.iml
