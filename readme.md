@@ -6,7 +6,7 @@ composer require arif98741/xenon
 <br>
 ##Sample Code
 <br>
-```
+<pre>
 <?php
 
 use Arif98741\Xenon\Sender;
@@ -23,4 +23,4 @@ $sender->setProvider('bulksmsbd')
     )->setMessage('hi')
     ->setMobile('017111111')
     ->send();
-```
+</pre>
