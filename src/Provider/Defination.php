@@ -11,4 +11,6 @@ interface Defination
     public function setData();
 
     public function sendRequest();
+
+    public function generateReport();
 }

@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class Bulksmsbd implements Defination
+class GreenWebSms implements Defination
 {
 
     public function getData()
@@ -20,5 +20,13 @@ class Bulksmsbd implements Defination
     public function sendRequest()
     {
         // TODO: Implement sendRequest() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function generateReport()
+    {
+        // TODO: Implement generateReport() method.
     }
 }
