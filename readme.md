@@ -1,0 +1,1 @@
+Xenon is a universal sms sending library specially for Bangladesh. You can integrate this library in your php application easily for sending sms to any Bangladeshi mobile number.
