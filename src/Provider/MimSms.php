@@ -21,4 +21,14 @@ class MimSms implements Defination
     {
         // TODO: Implement sendRequest() method.
     }
+
+    /**
+     * @param $result
+     * @param $data
+     * @return mixed
+     */
+    public function generateReport($result, $data)
+    {
+        // TODO: Implement generateReport() method.
+    }
 }

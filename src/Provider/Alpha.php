@@ -37,10 +37,13 @@ class Alpha implements Defination
         curl_close ($ch);
     }
 
+
     /**
+     * @param $result
+     * @param $data
      * @return mixed
      */
-    public function generateReport()
+    public function generateReport($result, $data)
     {
         // TODO: Implement generateReport() method.
     }

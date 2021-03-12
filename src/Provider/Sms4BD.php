@@ -4,8 +4,20 @@
 namespace Arif98741\Xenon\Provider;
 
 
+use Arif98741\Xenon\Sender;
+
 class Sms4BD implements Defination
 {
+    private $senderObject;
+
+    /**
+     * Sms4BD constructor.
+     * @param Sender $sender
+     */
+    public function __construct(Sender $sender)
+    {
+        $this->senderObject = $sender;
+    }
 
     public function getData()
     {
@@ -20,5 +32,15 @@ class Sms4BD implements Defination
     public function sendRequest()
     {
         // TODO: Implement sendRequest() method.
+    }
+
+    /**
+     * @param $result
+     * @param $data
+     * @return mixed
+     */
+    public function generateReport($result, $data)
+    {
+        // TODO: Implement generateReport() method.
     }
 }
