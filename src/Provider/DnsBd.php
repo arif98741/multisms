@@ -31,4 +31,12 @@ class DnsBd implements ProviderRoadmap
     {
         // TODO: Implement generateReport() method.
     }
+
+    /**
+     * @return mixed
+     */
+    public function errorException()
+    {
+        // TODO: Implement errorException() method.
+    }
 }

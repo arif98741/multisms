@@ -13,4 +13,6 @@ interface ProviderRoadmap
     public function sendRequest();
 
     public function generateReport($result, $data);
+
+    public function errorException();
 }
