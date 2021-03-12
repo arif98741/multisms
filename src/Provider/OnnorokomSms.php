@@ -6,7 +6,7 @@ namespace Arif98741\Xenon\Provider;
 
 use SoapClient;
 
-class OnnorokomSms implements Defination
+class OnnorokomSms implements ProviderRoadmap
 {
 
     public function getData()

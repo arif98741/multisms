@@ -7,7 +7,7 @@ namespace Arif98741\Xenon\Provider;
 use Arif98741\Xenon\Handler\XenonException;
 use Arif98741\Xenon\Sender;
 
-class BulkSmsBD implements Defination
+class BulkSmsBD implements ProviderRoadmap
 {
     private $senderObject;
 

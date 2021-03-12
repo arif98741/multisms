@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class BDBulkSms implements Defination
+class BDBulkSms implements ProviderRoadmap
 {
 
     public function getData()

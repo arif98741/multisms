@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class Alpha implements Defination
+class Alpha implements ProviderRoadmap
 {
 
     public function getData()

@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class DnsBd implements Defination
+class DnsBd implements ProviderRoadmap
 {
 
     public function getData()

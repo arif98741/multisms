@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class BulkSms implements Defination
+class BulkSms implements ProviderRoadmap
 {
     //https://www.bulksms.com/developer/json/v1/#tag/Message%2Fpaths%2F~1messages%2Fpost
     public function getData()

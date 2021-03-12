@@ -4,9 +4,8 @@
 namespace Arif98741\Xenon\Provider;
 
 
-interface Defination
+interface ProviderRoadmap
 {
-
     public function getData();
 
     public function setData();

@@ -6,7 +6,7 @@ namespace Arif98741\Xenon\Provider;
 
 use Arif98741\Xenon\Sender;
 
-class Sms4BD implements Defination
+class Sms4BD implements ProviderRoadmap
 {
     private $senderObject;
 

@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class GreenWebSms implements Defination
+class GreenWebSms implements ProviderRoadmap
 {
 
     public function getData()

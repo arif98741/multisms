@@ -4,7 +4,7 @@
 namespace Arif98741\Xenon\Provider;
 
 
-class MimSms implements Defination
+class MimSms implements ProviderRoadmap
 {
 
     public function getData()
