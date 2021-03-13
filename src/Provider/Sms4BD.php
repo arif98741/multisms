@@ -4,7 +4,7 @@
 namespace Xenon\Provider;
 
 
-use Arif98741\Xenon\Sender;
+use Xenon\Sender;
 
 class Sms4BD implements ProviderRoadmap
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-use Arif98741\Xenon\Sender;
+use Xenon\Sender;
 
 require 'vendor/autoload.php';
 

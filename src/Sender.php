@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Arif98741\Xenon;
+namespace Xenon;
 
 
-use Arif98741\Xenon\Handler\XenonException;
-use Arif98741\Xenon\Provider\Alpha;
-use Arif98741\Xenon\Provider\BulkSms;
-use Arif98741\Xenon\Provider\BulkSmsBD;
-use Arif98741\Xenon\Provider\DnsBd;
-use Arif98741\Xenon\Provider\GreenWebSms;
-use Arif98741\Xenon\Provider\MimSms;
-use Arif98741\Xenon\Provider\OnnorokomSms;
-use Arif98741\Xenon\Provider\Sms4BD;
+use Xenon\Handler\XenonException;
+use Xenon\Provider\Alpha;
+use Xenon\Provider\BulkSms;
+use Xenon\Provider\BulkSmsBD;
+use Xenon\Provider\DnsBd;
+use Xenon\Provider\GreenWebSms;
+use Xenon\Provider\MimSms;
+use Xenon\Provider\OnnorokomSms;
+use Xenon\Provider\Sms4BD;
 use Exception;
 
 class Sender

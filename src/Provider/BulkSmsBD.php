@@ -4,8 +4,8 @@
 namespace Xenon\Provider;
 
 
-use Arif98741\Xenon\Handler\XenonException;
-use Arif98741\Xenon\Sender;
+use Xenon\Handler\XenonException;
+use Xenon\Sender;
 
 class BulkSmsBD implements ProviderRoadmap
 {
