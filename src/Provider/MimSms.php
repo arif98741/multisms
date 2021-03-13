@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Arif98741\Xenon\Provider;
+namespace Xenon\Provider;
 
 
 class MimSms implements ProviderRoadmap

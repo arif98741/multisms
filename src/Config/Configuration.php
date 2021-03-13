@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Arif98741\Xenon\Config;
+namespace Xenon\Config;
 
 
 class Configuration

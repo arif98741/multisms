@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Arif98741\\Xenon\\": "src/"
+            "Xenon\\": "src/"
         }
     },
     "require-dev": {
