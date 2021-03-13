@@ -4,19 +4,8 @@
 namespace Xenon\Provider;
 
 
-class BulkSms implements ProviderRoadmap
+class BulkSms
 {
-    //https://www.bulksms.com/developer/json/v1/#tag/Message%2Fpaths%2F~1messages%2Fpost
-    public function getData()
-    {
-        // TODO: Implement getData() method.
-    }
-
-    public function setData()
-    {
-        // TODO: Implement setData() method.
-    }
-
     public function sendRequest()
     {
 

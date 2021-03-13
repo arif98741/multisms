@@ -22,7 +22,6 @@ class XenonException extends \Exception
         $bt = debug_backtrace();
         $exception = [
             'exception' => $this->getMessage(),
-            'working_on' => $object->getProvider(),
             'used_file' => [
                 'file' => $bt[0]['file'] . ' at line: ' . $bt[0]['line'],
                 'class' => $bt[1]['class'],

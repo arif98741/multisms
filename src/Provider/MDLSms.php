@@ -7,7 +7,7 @@ namespace Xenon\Provider;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class BulkSmsBD extends AbstractProvider
+class MDLSms extends AbstractProvider
 {
     /**
      * BulkSmsBD constructor.
@@ -23,35 +23,24 @@ class BulkSmsBD extends AbstractProvider
      */
     public function sendRequest()
     {
-        $url = "http://66.45.237.70/api.php";
-        $number = $this->senderObject->getMobile();
-        $text = $this->senderObject->getMessage();
-
-        try {
-            $this->errorException();
-
-        } catch (XenonException $exception) {
-            $exception->showException($this->senderObject);
-        }
-        $config = $this->senderObject->getConfig();
-
-        $data = array(
-            'username' => $config['username'],
-            'password' => $config['password'],
-            'number' => $number,
-            'message' => $text
-        );
-        try {
-            $ch = curl_init(); // Initialize cURL
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $smsResult = curl_exec($ch);
-            return $this->generateReport($smsResult, $data);
-
-        } catch (XenonException $exception) {
-            $exception->showException();
-        }
+        $url = "http://premium.mdlsms.com/smsapi";
+        $msg = $otp;
+        $data = [
+            "api_key" => "C20006315fca5e1a5edbd4.21877943",
+            "type" => "text",
+            "contacts" => $mobile,
+            "senderid" => "8809612441118",
+            "msg" => $msg
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
     }
 
     /**
