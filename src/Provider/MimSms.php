@@ -4,7 +4,7 @@
 namespace Xenon\Provider;
 
 
-class MimSms implements ProviderRoadmap
+class MimSms extends AbstractProvider
 {
 
     public function getData()
