@@ -26,13 +26,6 @@ class BulkSmsBD extends AbstractProvider
         $url = "http://66.45.237.70/api.php";
         $number = $this->senderObject->getMobile();
         $text = $this->senderObject->getMessage();
-
-        try {
-            $this->errorException();
-
-        } catch (XenonException $exception) {
-            $exception->showException($this->senderObject);
-        }
         $config = $this->senderObject->getConfig();
 
         $data = array(
@@ -77,14 +70,16 @@ class BulkSmsBD extends AbstractProvider
     }
 
     /**
+     * @param $result
      * @param $data
      * @return array
      */
-    public function generateReport($smsResult, $data): array
+    public function generateReport($result, $data): array
     {
         return [
             'status' => 'response',
-            'response' => $smsResult,
+            'response' => $result,
+            'provider'=> self::class,
             'send_time' => date('Y-m-d H:i:s'),
             'mobile' => $data['number'],
             'message' => $data['message']

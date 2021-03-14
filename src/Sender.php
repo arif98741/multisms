@@ -126,20 +126,20 @@ class Sender
 
     /**
      * Return this class object
-     * @param $providerClass
+     * @param $ProviderClass
      * @return Sender
      */
-    public function chooseProvider($providerClass): Sender
+    public function selectProvider($ProviderClass): Sender
     {
         try {
-            if (!class_exists($providerClass)) {
+            if (!class_exists($ProviderClass)) {
                 throw new XenonException('Provider not found');
             }
         } catch (XenonException $exception) {
-            $exception->showException($providerClass);
+            $exception->showException($ProviderClass);
         }
 
-        $this->provider = new $providerClass($this);
+        $this->provider = new $ProviderClass($this);
         return $this;
     }
 
