@@ -8,6 +8,7 @@ composer require arif98741/xenon
 ##Sample Code
 <br>
 <pre>
+
 use Xenon\Provider\BulkSmsBD;
 use Xenon\Sender;
 
@@ -26,4 +27,5 @@ var_dump($response);
 } catch (Exception $e) {
 var_dump($e->getMessage());
 }
+
 </pre>
