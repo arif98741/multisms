@@ -9,12 +9,11 @@ require 'vendor/autoload.php';
 
 $sender = Sender::getInstance();
 try {
-    $response = $sender->selectProvider(MDLSms::class)
+    $response = $sender->selectProvider(BulkSmsBD::class)
         ->setConfig(
             [
-                'api_key' => '77943',
-                'type' => 'text',
-                'senderid'=> '8809612441118'
+                'username' => '017555',
+                'password'=> 'XXXXX'
             ])
         ->setMessage('hello')
         ->setMobile('01750840217')
