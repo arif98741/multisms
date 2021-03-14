@@ -1,5 +1,4 @@
 Xenon is a universal sms sending library specially for Bangladesh. <br> You can integrate this library in your php application easily for sending sms to any Bangladeshi mobile number.
-Currently, **xenon** library is supporting _BulkSMSBD_,_MDLSms_. We are working for making it better and continuously adding more sms support for Bangladesh.
 
 
 ###Installation
@@ -8,23 +7,32 @@ Currently, **xenon** library is supporting _BulkSMSBD_,_MDLSms_. We are working 
 composer require arif98741/xenon
 ```
 
+
 ###Sample Code
 
-```
-<?php
+<pre>
 
-use Arif98741\Xenon\Sender;
-
-require 'vendor/autoload.php';
 
 $sender = Sender::getInstance();
-$sender->setProvider('bulksmsbd')
-    ->setConfig(
-        [
-            'username' => 'usernametest',
-            'password' => 'sflkdjslkf'
-        ]
-    )->setMessage('hello guys')
-    ->setMobile('0171XXYYZZ')
-    ->send();
-```
+try {
+    $response = $sender->selectProvider(BulkSmsBD::class)
+            ->setConfig(['username' => '017555', 'password' => 'XXXXX'])
+            ->setMessage('hello')
+            ->setMobile('017XXXXXXX')
+            ->send();
+    var_dump($response);
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+}
+
+</pre>
+
+
+#### Currently Supported SMS Gateways
+* BulkSMSBD
+* MDLSMS
+
+ We are continuously working in this open source library for adding more Bangladeshi sms gateway. If you fee something is missing then make a issue regarding that.
+If you want to contribute in this library, then you are highly welcome to do that.
+
+
