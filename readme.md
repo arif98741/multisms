@@ -8,20 +8,24 @@ composer require arif98741/xenon
 ##Sample Code
 <br>
 <pre>
-<?php
 
-use Arif98741\Xenon\Sender;
+
+use Xenon\Provider\BulkSmsBD;
+use Xenon\Sender;
 
 require 'vendor/autoload.php';
 
-$sender = new Sender();
-$sender->setProvider('bulksmsbd')
-    ->setConfig(
-        [
-            'username' => 'usernametest',
-            'password' => 'sflkdjslkf'
-        ]
-    )->setMessage('hi')
-    ->setMobile('017111111')
-    ->send();
+$sender = Sender::getInstance();
+try {
+    $response = $sender->selectProvider(BulkSmsBD::class)
+                        ->setConfig(['username' => '017555', 'password' => 'XXXXX'])
+                        ->setMessage('hello')
+                        ->setMobile('01750840217')
+                        ->send();
+    var_dump($response);
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+}
+
+
 </pre>
