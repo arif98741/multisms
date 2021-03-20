@@ -6,7 +6,7 @@ namespace Xenon\Provider;
 
 use SoapClient;
 
-class OnnorokomSms implements ProviderRoadmap
+class OnnorokomSms extends AbstractProvider
 {
 
     public function getData()
@@ -18,6 +18,7 @@ class OnnorokomSms implements ProviderRoadmap
     {
         // TODO: Implement setData() method.
     }
+
 
     public function sendRequest()
     {
@@ -44,5 +45,13 @@ class OnnorokomSms implements ProviderRoadmap
     public function generateReport()
     {
         // TODO: Implement generateReport() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function errorException()
+    {
+        // TODO: Implement errorException() method.
     }
 }
