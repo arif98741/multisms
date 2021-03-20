@@ -42,7 +42,7 @@ class OnnorokomSms extends AbstractProvider
     /**
      * @return mixed
      */
-    public function generateReport()
+    public function generateReport($result, $data)
     {
         // TODO: Implement generateReport() method.
     }

@@ -21,7 +21,7 @@ class BulkSmsBD extends AbstractProvider
     /**
      * Send Request To Api and Send Message
      */
-    public function sendRequest()
+    public function sendRequest(): array
     {
         $url = "http://66.45.237.70/api.php";
         $number = $this->senderObject->getMobile();
@@ -34,17 +34,13 @@ class BulkSmsBD extends AbstractProvider
             'number' => $number,
             'message' => $text
         );
-        try {
-            $ch = curl_init(); // Initialize cURL
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $smsResult = curl_exec($ch);
-            return $this->generateReport($smsResult, $data);
-
-        } catch (XenonException $exception) {
-            $exception->showException();
-        }
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsResult = curl_exec($ch);
+        curl_close($ch);
+        return $this->generateReport($smsResult, $data);
     }
 
     /**

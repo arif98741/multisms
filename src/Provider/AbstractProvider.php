@@ -36,7 +36,7 @@ abstract class AbstractProvider implements ProviderRoadmap
     /**
      * Return Report As Array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
 
