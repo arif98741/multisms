@@ -44,8 +44,8 @@ class SslSms extends AbstractProvider
         if ($smsResult == false) {
             $smsResult = curl_error($ch);
         }
-        return $this->generateReport($smsResult, $data);
         curl_close($ch);
+        return $this->generateReport($smsResult, $data);
 
     }
 

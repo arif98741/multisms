@@ -61,7 +61,6 @@ class Sender
     public function send()
     {
         try {
-
             $this->provider->errorException();
             return $this->provider->sendRequest();
         } catch (XenonException $exception) {

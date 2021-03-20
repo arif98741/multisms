@@ -17,6 +17,9 @@
             "Xenon\\": "src/"
         }
     },
+    "autoload-dev": {
+        'files': ""
+    },
     "require-dev": {
         "filp/whoops": "^2.7@dev",
         "league/booboo": "dev-master"

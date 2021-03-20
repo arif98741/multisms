@@ -3,6 +3,7 @@
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
+use Xenon\Provider\BDBulkSms;
 use Xenon\Provider\SslSms;
 use Xenon\Sender;
 
@@ -15,19 +16,14 @@ $whoops->register();
 
 
 $sender = Sender::getInstance();
-try {
-    $response = $sender->selectProvider(SslSms::class)
-        ->setConfig(
-            [
-                'api_token' => 'TDKHXKHljDLLKDFLKJDKFJLKJDFLKJDK',
-                'sid' => 'TESTSID',
-                'csms_id' => '12345678',
-            ]
-        )->setMessage('hello')
-        ->setMobile('0171ABBCCDD')
-        ->send();
-    var_dump($response);
-} catch (Exception $e) {
-    var_dump($e->getMessage());
-}
+
+$response = $sender->selectProvider(BDBulkSms::class)
+    ->setConfig(
+        [
+            'token' => 'testusername'
+        ]
+    )->setMessage('hello')
+    ->setMobile('01750840217')
+    ->send();
+var_dump($response);
 
