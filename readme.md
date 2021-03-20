@@ -31,6 +31,7 @@ try {
 
 
 #### Currently Supported SMS Gateways
+* BDBulkSMS
 * BulkSMSBD
 * MDLSMS
 * SSLSms
