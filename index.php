@@ -4,6 +4,7 @@
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 use Xenon\Provider\BDBulkSms;
+use Xenon\Provider\OnnorokomSms;
 use Xenon\Provider\SslSms;
 use Xenon\Sender;
 
@@ -17,13 +18,17 @@ $whoops->register();
 
 $sender = Sender::getInstance();
 
-$response = $sender->selectProvider(BDBulkSms::class)
+$response = $sender->selectProvider(OnnorokomSms::class)
     ->setConfig(
         [
-            'token' => 'testusername'
+            'userName' => 'onnorokom',
+            'userPassword' => 'LJDF()*D&*FN',
+            'type' => 1,
+            'maskName' => 'TestMask',
+            'campaignName' => 'TestCampaign',
         ]
     )->setMessage('hello')
-    ->setMobile('01750840217')
+    ->setMobile('01XXXXXXXX')
     ->send();
 var_dump($response);
 

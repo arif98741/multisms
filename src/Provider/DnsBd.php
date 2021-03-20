@@ -4,7 +4,7 @@
 namespace Xenon\Provider;
 
 
-class DnsBd implements ProviderRoadmap
+class DnsBd extends AbstractProvider
 {
 
     public function getData()
