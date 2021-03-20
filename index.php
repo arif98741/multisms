@@ -3,9 +3,7 @@
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
-use Xenon\Provider\BDBulkSms;
 use Xenon\Provider\OnnorokomSms;
-use Xenon\Provider\SslSms;
 use Xenon\Sender;
 
 
