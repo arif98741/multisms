@@ -75,7 +75,7 @@ class BulkSmsBD extends AbstractProvider
         return [
             'status' => 'response',
             'response' => $result,
-            'provider'=> self::class,
+            'provider' => self::class,
             'send_time' => date('Y-m-d H:i:s'),
             'mobile' => $data['number'],
             'message' => $data['message']
