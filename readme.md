@@ -34,6 +34,7 @@ try {
 * BDBulkSMS
 * BulkSMSBD
 * MDLSMS
+* OnnoRokomSMS
 * SSLSms
 
  We are continuously working in this open source library for adding more Bangladeshi sms gateway. If you fee something is missing then make a issue regarding that.
