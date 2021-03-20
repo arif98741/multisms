@@ -37,7 +37,8 @@ class XenonException extends \Exception
 
     /**
      * Gets the caller of the function where this function is called from
-     * @param string what to return? (Leave empty to get all, or specify: "class", "function", "line", "class", etc.) - options see: http://php.net/manual/en/function.debug-backtrace.php
+     * @param string what to return? (Leave empty to get all, or specify: "class", "function", "line", "class", etc.) -
+     * options see: http://php.net/manual/en/function.debug-backtrace.php
      * @return mixed
      */
     private function getCaller($what = NULL)

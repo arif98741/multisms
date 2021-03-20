@@ -61,10 +61,10 @@ class Sender
     public function send()
     {
         try {
+
             $this->provider->errorException();
             return $this->provider->sendRequest();
-        }catch (XenonException $exception)
-        {
+        } catch (XenonException $exception) {
             $exception->showException();
         }
     }
@@ -84,7 +84,7 @@ class Sender
     public function setMobile($mobile): Sender
     {
         $this->mobile = $mobile;
-        return $this;
+        return self::getInstance();
     }
 
     /**
@@ -102,7 +102,7 @@ class Sender
     public function setMessage($message = ''): Sender
     {
         $this->message = $message;
-        return $this;
+        return self::getInstance();
     }
 
     /**
@@ -112,7 +112,7 @@ class Sender
     public function setProvider($provider): Sender
     {
         $this->provider = $provider;
-        return $this;
+        return self::getInstance();
     }
 
 
