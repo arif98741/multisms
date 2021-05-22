@@ -3,7 +3,8 @@
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
-use Xenon\Provider\GreenWebSms;
+use Xenon\Provider\GreenWeb;
+use Xenon\Provider\Ssl;
 use Xenon\Sender;
 
 
@@ -16,7 +17,7 @@ $whoops->register();
 
 $sender = Sender::getInstance();
 
-$response = $sender->selectProvider(GreenWebSms::class)
+$response = $sender->selectProvider(Ssl::class)
     ->setConfig(
         [
             'to' => '01XXXXXXXXX',

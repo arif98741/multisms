@@ -7,7 +7,7 @@ namespace Xenon\Provider;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class GreenWebSms extends AbstractProvider
+class GreenWeb extends AbstractProvider
 {
     /**
      * Green web SMS constructor.

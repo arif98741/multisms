@@ -8,10 +8,10 @@ use SoapClient;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class OnnorokomSms extends AbstractProvider
+class Onnorokom extends AbstractProvider
 {
     /**
-     * OnnorokomSms constructor.
+     * Onnorokom constructor.
      * @param Sender $sender
      */
     public function __construct(Sender $sender)

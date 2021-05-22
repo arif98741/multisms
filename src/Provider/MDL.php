@@ -7,7 +7,7 @@ namespace Xenon\Provider;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class MDLSms extends AbstractProvider
+class MDL extends AbstractProvider
 {
     /**
      * BulkSmsBD constructor.
