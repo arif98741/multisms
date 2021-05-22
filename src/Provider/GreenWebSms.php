@@ -4,48 +4,79 @@
 namespace Xenon\Provider;
 
 
+use Xenon\Handler\XenonException;
+use Xenon\Sender;
+
 class GreenWebSms extends AbstractProvider
 {
+    /**
+     * Green web SMS constructor.
+     * @param Sender $sender
+     */
+    public function __construct(Sender $sender)
+    {
+        $this->senderObject = $sender;
+    }
+
+    /**
+     * Request To Green Web Server
+     */
     public function sendRequest()
     {
-        $to = "017xxxxxxx,+88016xxxxxxx";
-        $token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-        $message = "Test SMS From Using API";
+        $to = $this->senderObject->getMobile();
+        $config = $this->senderObject->getConfig();
+        $token = $config['token'];
+        $message = $this->senderObject->getMessage();
 
-        $url = "http://api.greenweb.com.bd/api.php?json";
+        $url = "https://api.greenweb.com.bd/api.php?json";
 
-        $data= array(
-            'to'=>"$to",
-            'message'=>"$message",
-            'token'=>"$token"
-        ); // Add parameters in key value
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL,$url);
+        $data = array(
+            'to' => "$to",
+            'message' => "$message",
+            'token' => "$token"
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_ENCODING, '');
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $smsresult = curl_exec($ch);
-
-//Result
-        echo $smsresult;
-
-//Error Display
-        echo curl_error($ch);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $smsResult = curl_exec($ch);
+        if ($smsResult == false) {
+            $smsResult = curl_error($ch);
+        }
+        curl_close($ch);
+        $data['number'] = $to;
+        return $this->generateReport($smsResult, $data);
     }
 
     /**
-     * @return mixed
+     * @param $result
+     * @param $data
+     * @return array
      */
-    public function generateReport()
+    public function generateReport($result, $data): array
     {
-        // TODO: Implement generateReport() method.
-    }
+        return [
+            'status' => 'response',
+            'response' => $result,
+            'provider' => self::class,
+            'send_time' => date('Y-m-d H:i:s'),
+            'mobile' => $data['number'],
+            'message' => $data['message']
+        ];
+    }   // TODO: Implement generateReport() method.
+
 
     /**
-     * @return mixed
+     * @throws XenonException
      */
     public function errorException()
     {
-        // TODO: Implement errorException() method.
+        if (!array_key_exists('to', $this->senderObject->getConfig()))
+            throw new XenonException('to key is absent in configuration');
+        if (!array_key_exists('token', $this->senderObject->getConfig()))
+            throw new XenonException('token key is absent in configuration');
+
     }
 }

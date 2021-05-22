@@ -113,7 +113,6 @@ class BDBulkSms extends AbstractProvider
 
             if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11)
                 throw new XenonException('Invalid mobile number. It should be 11 digit');
-
         }
 
 

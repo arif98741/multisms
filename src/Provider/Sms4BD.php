@@ -37,7 +37,7 @@ class Sms4BD implements ProviderRoadmap
     /**
      * @param $result
      * @param $data
-     * @return mixed
+     * @return void
      */
     public function generateReport($result, $data)
     {

@@ -3,7 +3,7 @@
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
-use Xenon\Provider\OnnorokomSms;
+use Xenon\Provider\GreenWebSms;
 use Xenon\Sender;
 
 
@@ -16,17 +16,14 @@ $whoops->register();
 
 $sender = Sender::getInstance();
 
-$response = $sender->selectProvider(OnnorokomSms::class)
+$response = $sender->selectProvider(GreenWebSms::class)
     ->setConfig(
         [
-            'userName' => 'onnorokom',
-            'userPassword' => 'LJDF()*D&*FN',
-            'type' => 1,
-            'maskName' => 'TestMask',
-            'campaignName' => 'TestCampaign',
+            'to' => '01XXXXXXXXX',
+            'token' => '17bb233cXXX-924e-XXXXX-86d5-XXXXX',
         ]
     )->setMessage('hello')
-    ->setMobile('01XXXXXXXX')
+    ->setMobile('01750840217')
     ->send();
 var_dump($response);
 
