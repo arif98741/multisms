@@ -26,24 +26,6 @@ class DianaHost extends AbstractProvider
      */
     public function sendRequest(): array
     {
-        /*$url = "http://66.45.237.70/api.php";
-        $number = $this->senderObject->getMobile();
-        $text = $this->senderObject->getMessage();
-        $config = $this->senderObject->getConfig();
-
-        $data = array(
-            'username' => $config['username'],
-            'password' => $config['password'],
-            'number' => $number,
-            'message' => $text
-        );
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $smsResult = curl_exec($ch);
-        curl_close($ch);
-        return $this->generateReport($smsResult, $data);*/
         $number = $this->senderObject->getMobile();
         $text = $this->senderObject->getMessage();
         $config = $this->senderObject->getConfig();
@@ -63,11 +45,10 @@ class DianaHost extends AbstractProvider
             ]
         ]);
         $body = $response->getBody();
-        $x = $body->getContents();
-        echo '<pre>';
-        print_r($x);
-        echo '</pre>';
-        die;
+        $smsResult = $body->getContents();
+        $data['number'] = $number;
+        $data['message'] = $text;
+        return $this->generateReport($smsResult, $data);
     }
 
     /**
@@ -86,12 +67,6 @@ class DianaHost extends AbstractProvider
         }
         if (!array_key_exists('senderid', $this->senderObject->getConfig())) {
             throw new XenonException('senderid key is absent in configuration');
-        }
-        if (!array_key_exists('contacts', $this->senderObject->getConfig())) {
-            throw new XenonException('contacts key is absent in configuration');
-        }
-        if (!array_key_exists('msg', $this->senderObject->getConfig())) {
-            throw new XenonException('msg key is absent in configuration');
         }
 
         if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11) {

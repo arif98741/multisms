@@ -22,14 +22,12 @@ try {
     $response = $sender->selectProvider(DianaHost::class)
         ->setConfig(
             [
-                'api_key' => 'api_key',
+                'api_key' => 'R60004473.85413693',
                 'type' => 'type',
-                'senderid' => 'senderid',
-                'contacts' => '017517',
-                'msg' => 'hello',
+                'senderid' => 'MEDIABD',
             ]
         )->setMessage('hello')
-        ->setMobile('01750840217')
+        ->setMobile('01733499574')
         ->send();
     var_dump($response);
 } catch (Exception $e) {
