@@ -4,8 +4,8 @@
 namespace Xenon;
 
 
-use Xenon\Handler\XenonException;
 use Exception;
+use Xenon\Handler\XenonException;
 
 class Sender
 {
@@ -132,7 +132,7 @@ class Sender
     {
         try {
             if (!class_exists($ProviderClass)) {
-                throw new XenonException('Provider not found');
+                throw new XenonException('Provider ' . $ProviderClass . ' not found');
             }
         } catch (XenonException $exception) {
             $exception->showException($ProviderClass);
@@ -141,6 +141,5 @@ class Sender
         $this->provider = new $ProviderClass($this);
         return $this;
     }
-
 
 }

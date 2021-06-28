@@ -7,7 +7,7 @@ namespace Xenon\Provider;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class MDLSms extends AbstractProvider
+class MDL extends AbstractProvider
 {
     /**
      * BulkSmsBD constructor.
@@ -42,9 +42,9 @@ class MDLSms extends AbstractProvider
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $response = curl_exec($ch);
+        $smsResult = curl_exec($ch);
         curl_close($ch);
-        return $response;
+        return $this->generateReport($smsResult, $data);
     }
 
     /**

@@ -4,7 +4,7 @@
 namespace Xenon\Provider;
 
 
-class MimSms extends AbstractProvider
+class Mim extends AbstractProvider
 {
 
     public function getData()

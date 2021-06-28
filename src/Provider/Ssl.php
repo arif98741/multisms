@@ -7,7 +7,7 @@ namespace Xenon\Provider;
 use Xenon\Handler\XenonException;
 use Xenon\Sender;
 
-class SslSms extends AbstractProvider
+class Ssl extends AbstractProvider
 {
     /**
      * BulkSmsBD constructor.

@@ -3,11 +3,12 @@
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
-use Xenon\Provider\BDBulkSms;
-use Xenon\Provider\DianaHost;
-use Xenon\Provider\SslSms;
-use Xenon\Sender;
 
+use Xenon\Provider\DianaHost;
+use Xenon\Provider\GreenWeb;
+use Xenon\Provider\Ssl;
+
+use Xenon\Sender;
 
 require 'vendor/autoload.php';
 
@@ -18,6 +19,7 @@ $whoops->register();
 
 $sender = Sender::getInstance();
 
+
 try {
     $response = $sender->selectProvider(DianaHost::class)
         ->setConfig(
@@ -27,10 +29,13 @@ try {
                 'senderid' => 'MEDIABD',
             ]
         )->setMessage('hello')
-        ->setMobile('01733499574')
+        ->setMobile('0173344')
         ->send();
     var_dump($response);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+
+
+
 
