@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
 use SoapClient;
-use Xenon\Handler\XenonException;
-use Xenon\Sender;
+use Xenon\Multisms\Handler\XenonException;
+use Xenon\Multisms\Sender;
 
 class Onnorokom extends AbstractProvider
 {

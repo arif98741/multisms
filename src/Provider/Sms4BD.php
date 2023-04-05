@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
-use Xenon\Sender;
+use Xenon\Multisms\Sender;
 
 class Sms4BD implements ProviderRoadmap
 {

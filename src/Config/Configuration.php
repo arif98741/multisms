@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Xenon\Config;
+namespace Xenon\Multisms\Config;
 
 
 class Configuration
 {
-    
+    //todo:: write something here
 }

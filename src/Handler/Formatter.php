@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xenon\Handler;
+namespace Xenon\Multisms\Handler;
 
 
 class Formatter

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
 class DnsBd extends AbstractProvider
