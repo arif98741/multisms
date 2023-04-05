@@ -1,5 +1,5 @@
 {
-    "name": "arif98741/xenon",
+    "name": "xenon/multisms",
     "description": "This is universal sms gateway service provider for Bangladesh. You can easily use this library for sending message using Bangladeshi sms gateway providers",
     "type": "library",
     "license": "MIT",
