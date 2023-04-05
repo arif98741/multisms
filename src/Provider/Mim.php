@@ -1,34 +1,103 @@
 <?php
 
-
 namespace Xenon\Provider;
 
 
+use Xenon\Handler\XenonException;
+use Xenon\Sender;
+
 class Mim extends AbstractProvider
 {
-
-    public function getData()
+    /**
+     * Mim SMS constructor.
+     * @param Sender $sender
+     */
+    public function __construct(Sender $sender)
     {
-        // TODO: Implement getData() method.
+        $this->senderObject = $sender;
     }
 
-    public function setData()
+    /**
+     * Send Request To Api and Send Message
+     */
+    public function sendRequest(): array
     {
-        // TODO: Implement setData() method.
+        $url = "https://mimsms.com.bd/smsAPI";
+        $number = $this->formatNumber($this->senderObject->getMobile());
+        $text = $this->senderObject->getMessage();
+        $config = $this->senderObject->getConfig();
+
+        $data = [
+            'sendsms'   => '',
+            'apikey'    => $config['apikey'],
+            'apitoken'  => $config['apitoken'],
+            'from'      => $config['senderid'],
+            'type'      => 'sms',
+            'to'        => $number,
+            'text'      => $text
+        ];
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsResult = curl_exec($ch);
+        curl_close($ch);
+        return $this->generateReport($smsResult, $data);
     }
 
-    public function sendRequest()
+    /**
+     * For mobile number
+     * @param $mobile
+     * @return string
+     */
+    private function formatNumber($mobile): string
     {
-        // TODO: Implement sendRequest() method.
+        if (mb_substr($mobile, 0, 2) == '01') {
+            $number = $mobile;
+        } elseif (mb_substr($mobile, 0, 2) == '88') {
+            $number = str_replace('88', '', $mobile);
+        } elseif (mb_substr($mobile, 0, 3) == '+88') {
+            $number = str_replace('+88', '', $mobile);
+        }
+        return '88' . $number;
+    }
+
+    /**
+     * @throws XenonException
+     */
+    public function errorException()
+    {
+        if (!is_array($this->senderObject->getConfig())) {
+            throw new XenonException('Configuration is not provided. Use setConfig() in method chain');
+        }
+        if (!array_key_exists('apikey', $this->senderObject->getConfig())) {
+            throw new XenonException('apikey is absent in configuration');
+        }
+        if (!array_key_exists('apitoken', $this->senderObject->getConfig())) {
+            throw new XenonException('apitoken is absent in configuration');
+        }
+        if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11) {
+            throw new XenonException('Invalid mobile number. It should be 11 digit');
+        }
+        if (empty($this->senderObject->getMessage())) {
+            throw new XenonException('Message should not be empty');
+        }
     }
 
     /**
      * @param $result
      * @param $data
-     * @return mixed
+     * @return array
      */
-    public function generateReport($result, $data)
+    public function generateReport($result, $data): array
     {
-        // TODO: Implement generateReport() method.
+        return [
+            'status'    => 'response',
+            'response'  => $result,
+            'provider'  => self::class,
+            'send_time' => date('Y-m-d H:i:s'),
+            'mobile'    => $data['to'],
+            'message'   => $data['text']
+        ];
     }
 }
