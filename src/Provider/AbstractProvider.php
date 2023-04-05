@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
 abstract class AbstractProvider implements ProviderRoadmap

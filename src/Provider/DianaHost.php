@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
-use Xenon\Handler\XenonException;
-use Xenon\Sender;
+use Xenon\Multisms\Handler\XenonException;
+use Xenon\Multisms\Sender;
 use function Couchbase\defaultDecoder;
 
 class DianaHost extends AbstractProvider
