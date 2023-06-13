@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Xenon;
+namespace Xenon\Multisms;
 
 
 use Exception;
-use Xenon\Handler\XenonException;
+use Xenon\Multisms\Handler\XenonException;
 
 class Sender
 {
@@ -42,14 +42,11 @@ class Sender
      */
     public function setConfig($config): Sender
     {
-        try {
-            if (!is_array($config)) {
-                throw  new XenonException('config must be an array');
-            }
-            $this->config = $config;
-        } catch (XenonException $e) {
-            $e->showException();
+        if (!is_array($config)) {
+            throw  new XenonException('config must be an array');
         }
+
+        $this->config = $config;
 
         return $this;
     }
@@ -57,6 +54,7 @@ class Sender
 
     /**
      * Send Message Finally
+     * @throws XenonException
      */
     public function send()
     {
@@ -64,7 +62,7 @@ class Sender
             $this->provider->errorException();
             return $this->provider->sendRequest();
         } catch (XenonException $exception) {
-            $exception->showException();
+            throw new XenonException($exception->getMessage());
         }
     }
 
@@ -107,11 +105,17 @@ class Sender
     /**
      * @param mixed $provider
      * @return Sender
+     * @throws XenonException
      */
     public function setProvider($provider): Sender
     {
-        $this->provider = $provider;
-        return self::getInstance();
+        if (!class_exists($provider)) {
+            throw new XenonException('Provider ' . $provider . ' not found');
+        }
+
+        $this->provider = new $provider($this);
+
+        return $this;
     }
 
 
@@ -121,25 +125,6 @@ class Sender
     public function getProvider()
     {
         return $this->provider;
-    }
-
-    /**
-     * Return this class object
-     * @param $ProviderClass
-     * @return Sender
-     */
-    public function selectProvider($ProviderClass): Sender
-    {
-        try {
-            if (!class_exists($ProviderClass)) {
-                throw new XenonException('Provider ' . $ProviderClass . ' not found');
-            }
-        } catch (XenonException $exception) {
-            $exception->showException($ProviderClass);
-        }
-
-        $this->provider = new $ProviderClass($this);
-        return $this;
     }
 
 }

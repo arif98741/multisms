@@ -11,11 +11,13 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3|^7.2",
+        "ext-curl": "*",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {
-            "Xenon\\": "src/"
+            "Xenon\\Multisms\\": "src/"
         }
     },
     "autoload-dev": {

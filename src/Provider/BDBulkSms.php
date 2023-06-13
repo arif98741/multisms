@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Xenon\Provider;
+namespace Xenon\Multisms\Provider;
 
 
-use Xenon\Handler\XenonException;
-use Xenon\Sender;
+use Xenon\Multisms\Handler\XenonException;
+use Xenon\Multisms\Sender;
 
 class BDBulkSms extends AbstractProvider
 {

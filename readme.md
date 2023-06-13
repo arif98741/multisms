@@ -10,8 +10,8 @@ composer require xenon/multisms
 ### Sample Code
 
 <pre>
-use Xenon\Provider\BulkSmsBD;
-use Xenon\Sender;
+use Xenon\Multisms\Provider\BulkSmsBD;
+use Xenon\Multisms\Sender;
 
 require 'vendor/autoload.php';
 
