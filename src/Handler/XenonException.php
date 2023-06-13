@@ -3,7 +3,6 @@
 
 namespace Xenon\Multisms\Handler;
 
-
 class XenonException extends \Exception
 {
     /**
@@ -11,19 +10,15 @@ class XenonException extends \Exception
      *
      * @return void
      */
-    public function report()
+    public function __construct($message, $code = 0, Throwable $previous = null)
     {
+        // Call the parent constructor
+        parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * Render the exception into an HTTP response.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function render(Request $request)
+    public function __toString()
     {
-
+        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 
 }
