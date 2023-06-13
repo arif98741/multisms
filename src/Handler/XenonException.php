@@ -1,56 +1,24 @@
 <?php
 
 
-namespace Xenon\Handler;
-
+namespace Xenon\Multisms\Handler;
 
 class XenonException extends \Exception
 {
-    protected $message;
-    protected $code;
-
-    public function __construct($message, $code = null)
+    /**
+     * Report the exception.
+     *
+     * @return void
+     */
+    public function __construct($message, $code = 0, Throwable $previous = null)
     {
-        parent::__construct($message, $code);
+        // Call the parent constructor
+        parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * @return array
-     */
-    public function showException($object = null): array
+    public function __toString()
     {
-        $bt = debug_backtrace();
-        $exception = [
-            'exception' => $this->getMessage(),
-            'used_file' => [
-                'file' => $bt[0]['file'] . ' at line: ' . $bt[0]['line'],
-                'class' => $bt[1]['class'],
-                'method' => $bt[1]['function'] . '()',
-                'called by' => $this->getCaller()
-            ]
-        ];
-        echo '<pre>';
-        print_r($exception);
-        echo '<pre>';
-        exit;
-    }
-
-    /**
-     * Gets the caller of the function where this function is called from
-     * @param string what to return? (Leave empty to get all, or specify: "class", "function", "line", "class", etc.) -
-     * options see: http://php.net/manual/en/function.debug-backtrace.php
-     * @return mixed
-     */
-    private function getCaller($what = NULL)
-    {
-        $trace = debug_backtrace();
-        $previousCall = $trace[2]; // 0 is this call, 1 is call in previous function, 2 is caller of that function
-
-        if (isset($what)) {
-            return $previousCall[$what];
-        } else {
-            return $previousCall;
-        }
+        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 
 }
