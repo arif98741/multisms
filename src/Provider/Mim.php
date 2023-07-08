@@ -56,9 +56,9 @@ class Mim extends AbstractProvider
         if (mb_substr($mobile, 0, 2) == '01') {
             $number = $mobile;
         } elseif (mb_substr($mobile, 0, 2) == '88') {
-            $number = str_replace('88', '', $mobile);
+            $number = mb_substr($mobile, 2);
         } elseif (mb_substr($mobile, 0, 3) == '+88') {
-            $number = str_replace('+88', '', $mobile);
+            $number = mb_substr($mobile, 3);
         }
         return '88' . $number;
     }
