@@ -2,7 +2,6 @@
 
 namespace Xenon\Multisms\Provider;
 
-
 use Xenon\Multisms\Handler\XenonException;
 use Xenon\Multisms\Sender;
 
@@ -23,19 +22,19 @@ class Mim extends AbstractProvider
      */
     public function sendRequest(): array
     {
-        $url = "https://mimsms.com.bd/smsAPI";
+        $url = "https://api.mimsms.com/api/SmsSending/SMS";
         $number = $this->formatNumber($this->senderObject->getMobile());
         $text = $this->senderObject->getMessage();
         $config = $this->senderObject->getConfig();
 
         $data = [
-            'sendsms'   => '',
-            'apikey'    => $config['apikey'],
-            'apitoken'  => $config['apitoken'],
-            'from'      => $config['senderid'],
-            'type'      => 'sms',
-            'to'        => $number,
-            'text'      => $text
+            'sendsms'         => '',
+            'Apikey'          => $config['apikey'],
+            'UserName'        => $config['apitoken'],
+            'SenderName'      => $config['senderid'],
+            'TransactionType' => 'T',
+            'MobileNumber'    => $number,
+            'Message'         => $text,
         ];
         $ch = curl_init(); // Initialize cURL
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -56,9 +55,9 @@ class Mim extends AbstractProvider
         if (mb_substr($mobile, 0, 2) == '01') {
             $number = $mobile;
         } elseif (mb_substr($mobile, 0, 2) == '88') {
-            $number = mb_substr($mobile, 2);
+            $number = str_replace('88', '', $mobile);
         } elseif (mb_substr($mobile, 0, 3) == '+88') {
-            $number = mb_substr($mobile, 3);
+            $number = str_replace('+88', '', $mobile);
         }
         return '88' . $number;
     }
@@ -97,8 +96,8 @@ class Mim extends AbstractProvider
             'response'  => $result,
             'provider'  => self::class,
             'send_time' => date('Y-m-d H:i:s'),
-            'mobile'    => $data['to'],
-            'message'   => $data['text']
+            'mobile'    => $data['MobileNumber'],
+            'message'   => $data['Message'],
         ];
     }
 }
