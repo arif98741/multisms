@@ -7,10 +7,10 @@ namespace Xenon\Multisms\Provider;
 use Xenon\Multisms\Handler\XenonException;
 use Xenon\Multisms\Sender;
 
-class BulkSmsBD extends AbstractProvider
+class Smsq extends AbstractProvider
 {
     /**
-     * BulkSmsBD constructor.
+     * Smsq constructor.
      * @param Sender $sender
      */
     public function __construct(Sender $sender)
@@ -23,23 +23,33 @@ class BulkSmsBD extends AbstractProvider
      */
     public function sendRequest(): array
     {
-        $url = "https://bulksmsbd.net/api/smsapi";
+        $url = "https://api.smsq.global/api/v2/SendSMS";
         $number = $this->formatNumber($this->senderObject->getMobile());
         $text = $this->senderObject->getMessage();
         $config = $this->senderObject->getConfig();
 
         $data = [
-            'api_key' => $config['api_key'],
-            'senderid' => $config['senderid'],
-            'number' => $number,
-            'message' => $text
+            'senderId'      => $config['sender_id'],
+            'is_Unicode'    => true,
+            'apiKey'        => $config['api_key'],
+            'clientId'      => $config['client_id'],
+            'mobileNumbers' => $number,
+            'message'       => $text
         ];
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $smsResult = curl_exec($ch);
-        curl_close($ch);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => [
+                "accept: application/json",
+                "content-type: application/json"
+            ],
+        ]);
+        $smsResult = curl_exec($curl);
+        curl_close($curl);
         return $this->generateReport($smsResult, $data);
     }
 
@@ -68,12 +78,17 @@ class BulkSmsBD extends AbstractProvider
         if (!is_array($this->senderObject->getConfig())) {
             throw new XenonException('Configuration is not provided. Use setConfig() in method chain');
         }
+        if (!array_key_exists('sender_id', $this->senderObject->getConfig())) {
+            throw new XenonException('sender_id key is absent in configuration');
+        }
         if (!array_key_exists('api_key', $this->senderObject->getConfig())) {
             throw new XenonException('api_key key is absent in configuration');
         }
-        if (!array_key_exists('senderid', $this->senderObject->getConfig())) {
-            throw new XenonException('senderid key is absent in configuration');
+
+        if (!array_key_exists('client_id', $this->senderObject->getConfig())) {
+            throw new XenonException('client_id key is absent in configuration');
         }
+
         if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11) {
             throw new XenonException('Invalid mobile number. It should be 11 digit');
         }
@@ -94,8 +109,8 @@ class BulkSmsBD extends AbstractProvider
             'response' => $result,
             'provider' => self::class,
             'send_time' => date('Y-m-d H:i:s'),
-            'mobile' => $data['number'],
-            'message' => $data['message']
+            'mobile' => $data['MobileNumbers'],
+            'message' => $data['Message']
         ];
     }
 }
