@@ -23,7 +23,7 @@ class Ssl extends AbstractProvider
      */
     public function sendRequest(): array
     {
-        $mobile = $this->senderObject->getMobile();
+        $mobile = $this->formatNumber($this->senderObject->getMobile());
         $config = $this->senderObject->getConfig();
 
         $apiToken = $config['api_token'];
@@ -31,14 +31,17 @@ class Ssl extends AbstractProvider
         $csms_id = $config['csms_id'];
 
         $data = [
-            'number' => $mobile,
-            'message' => $this->senderObject->getMessage()
+            'api_token' => $apiToken,
+            'sid'       => $sid,
+            'msisdn'    => $mobile,
+            'sms'       => $this->senderObject->getMessage(),
+            'csms_id'   => $csms_id
         ];
 
-        $message = $this->senderObject->getMessage();
-        $url = "https://smsplus.sslwireless.com/api/v3/send-sms?api_token=$apiToken&sid=$sid&sms=$message&msisdn=$mobile&csms_id=$csms_id";
+        $url = "https://smsplus.sslwireless.com/api/v3/send-sms";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $smsResult = curl_exec($ch);
         if ($smsResult == false) {
@@ -46,7 +49,23 @@ class Ssl extends AbstractProvider
         }
         curl_close($ch);
         return $this->generateReport($smsResult, $data);
+    }
 
+    /**
+     * For mobile number
+     * @param $mobile
+     * @return string
+     */
+    private function formatNumber($mobile): string
+    {
+        if (mb_substr($mobile, 0, 2) == '01') {
+            $number = $mobile;
+        } elseif (mb_substr($mobile, 0, 2) == '88') {
+            $number = str_replace('88', '', $mobile);
+        } elseif (mb_substr($mobile, 0, 3) == '+88') {
+            $number = str_replace('+88', '', $mobile);
+        }
+        return '88' . $number;
     }
 
     /**
@@ -71,7 +90,6 @@ class Ssl extends AbstractProvider
 
         if (empty($this->senderObject->getMessage()))
             throw new XenonException('Message should not be empty');
-
     }
 
     /**
@@ -86,8 +104,8 @@ class Ssl extends AbstractProvider
             'response' => $result,
             'provider' => self::class,
             'send_time' => date('Y-m-d H:i:s'),
-            'mobile' => $data['number'],
-            'message' => $data['message']
+            'mobile' => $data['msisdn'],
+            'message' => $data['sms']
         ];
     }
 }
