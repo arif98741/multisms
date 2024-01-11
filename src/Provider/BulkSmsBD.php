@@ -23,17 +23,17 @@ class BulkSmsBD extends AbstractProvider
      */
     public function sendRequest(): array
     {
-        $url = "http://66.45.237.70/api.php";
-        $number = $this->senderObject->getMobile();
+        $url = "https://bulksmsbd.net/api/smsapi";
+        $number = $this->formatNumber($this->senderObject->getMobile());
         $text = $this->senderObject->getMessage();
         $config = $this->senderObject->getConfig();
 
-        $data = array(
-            'username' => $config['username'],
-            'password' => $config['password'],
+        $data = [
+            'api_key' => $config['api_key'],
+            'senderid' => $config['senderid'],
             'number' => $number,
             'message' => $text
-        );
+        ];
         $ch = curl_init(); // Initialize cURL
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
@@ -44,6 +44,23 @@ class BulkSmsBD extends AbstractProvider
     }
 
     /**
+     * For mobile number
+     * @param $mobile
+     * @return string
+     */
+    private function formatNumber($mobile): string
+    {
+        if (mb_substr($mobile, 0, 2) == '01') {
+            $number = $mobile;
+        } elseif (mb_substr($mobile, 0, 2) == '88') {
+            $number = str_replace('88', '', $mobile);
+        } elseif (mb_substr($mobile, 0, 3) == '+88') {
+            $number = str_replace('+88', '', $mobile);
+        }
+        return '88' . $number;
+    }
+
+    /**
      * @throws XenonException
      */
     public function errorException()
@@ -51,11 +68,11 @@ class BulkSmsBD extends AbstractProvider
         if (!is_array($this->senderObject->getConfig())) {
             throw new XenonException('Configuration is not provided. Use setConfig() in method chain');
         }
-        if (!array_key_exists('username', $this->senderObject->getConfig())) {
-            throw new XenonException('username key is absent in configuration');
+        if (!array_key_exists('api_key', $this->senderObject->getConfig())) {
+            throw new XenonException('api_key key is absent in configuration');
         }
-        if (!array_key_exists('password', $this->senderObject->getConfig())) {
-            throw new XenonException('password key is absent in configuration');
+        if (!array_key_exists('senderid', $this->senderObject->getConfig())) {
+            throw new XenonException('senderid key is absent in configuration');
         }
         if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11) {
             throw new XenonException('Invalid mobile number. It should be 11 digit');
