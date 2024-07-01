@@ -80,8 +80,8 @@ class Mim extends AbstractProvider
         if (!array_key_exists('apikey', $this->senderObject->getConfig())) {
             throw new XenonException('apikey is absent in configuration');
         }
-        if (!array_key_exists('apitoken', $this->senderObject->getConfig())) {
-            throw new XenonException('apitoken is absent in configuration');
+        if (!array_key_exists('username', $this->senderObject->getConfig())) {
+            throw new XenonException('username is absent in configuration');
         }
         if (strlen($this->senderObject->getMobile()) > 11 || strlen($this->senderObject->getMobile()) < 11) {
             throw new XenonException('Invalid mobile number. It should be 11 digit');
