@@ -23,18 +23,18 @@ class GreenWeb extends AbstractProvider
      */
     public function sendRequest()
     {
-        $to = $this->senderObject->getMobile();
+        $to = $this->formatNumber($this->senderObject->getMobile());
         $config = $this->senderObject->getConfig();
         $token = $config['token'];
         $message = $this->senderObject->getMessage();
 
         $url = "https://api.greenweb.com.bd/api.php?json";
 
-        $data = array(
-            'to' => "$to",
-            'message' => "$message",
-            'token' => "$token"
-        );
+        $data = [
+            'to' => $to,
+            'message' => $message,
+            'token' => $token
+        ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_ENCODING, '');
@@ -48,6 +48,23 @@ class GreenWeb extends AbstractProvider
         curl_close($ch);
         $data['number'] = $to;
         return $this->generateReport($smsResult, $data);
+    }
+
+    /**
+     * For mobile number
+     * @param $mobile
+     * @return string
+     */
+    private function formatNumber($mobile): string
+    {
+        if (mb_substr($mobile, 0, 2) == '01') {
+            $number = $mobile;
+        } elseif (mb_substr($mobile, 0, 2) == '88') {
+            $number = str_replace('88', '', $mobile);
+        } elseif (mb_substr($mobile, 0, 3) == '+88') {
+            $number = str_replace('+88', '', $mobile);
+        }
+        return '88' . $number;
     }
 
     /**

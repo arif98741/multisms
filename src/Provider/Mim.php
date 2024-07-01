@@ -26,21 +26,28 @@ class Mim extends AbstractProvider
         $number = $this->formatNumber($this->senderObject->getMobile());
         $text = $this->senderObject->getMessage();
         $config = $this->senderObject->getConfig();
-
+        
         $data = [
-            'sendsms'         => '',
-            'Apikey'          => $config['apikey'],
-            'UserName'        => $config['apitoken'],
-            'SenderName'      => $config['senderid'],
+            'UserName' => $config['username'],
+            'Apikey' => $config['apikey'],
+            'MobileNumber' => $number,
+            'SenderName' => $config['senderid'],
             'TransactionType' => 'T',
-            'MobileNumber'    => $number,
-            'Message'         => $text,
+            'Message' => $text
         ];
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        
+        $payload = json_encode($data);
+        
+        $ch = curl_init($url);
+        
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
         $smsResult = curl_exec($ch);
+        
         curl_close($ch);
         return $this->generateReport($smsResult, $data);
     }
